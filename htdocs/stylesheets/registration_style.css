@@ -1,0 +1,30 @@
+.card {
+    margin-top: 50px;
+    background-color: black;
+    color: white;
+}
+
+.card-header {
+    background-color: #e60000;
+    font-size: 25px;
+}
+
+.registration-inputs{
+    margin-right: 7px;
+    margin-left: 7px;
+    margin-bottom: 15px;
+    width: 35%;
+}
+.g-recaptcha {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.btn {
+    margin-bottom: 12px;
+}
+
+form {
+    margin-bottom: -5px;
+}

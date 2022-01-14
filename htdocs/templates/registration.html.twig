@@ -1,0 +1,36 @@
+<head>
+    <link rel="stylesheet" href="/stylesheets/registration_style.css">
+</head>
+
+<center>
+    <div class="container mb-5">
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <b>REJESTRACJA</b>
+                </div>
+                <div class="card-body">
+                    <form action="/registration" method="POST">
+                        <input class="registration-inputs" type="text" name="new_name" placeholder="Imię">
+                        <input class="registration-inputs" type="text" name="new_surname" placeholder="Nazwisko">
+                        <br>
+                        <input class="registration-inputs" type="text" name="new_postcode" placeholder="Kod pocztowy">
+                        <input class="registration-inputs" type="text" name="new_city" placeholder="Miejscowość">
+                        <br>
+                        <input class="registration-inputs" type="text" name="new_email" placeholder="E-mail">
+                        <input class="registration-inputs" type="text" name="new_phone_number" placeholder="Telefon">
+                        <br>
+                        <input class="registration-inputs" type="password" name="new_password" placeholder="Hasło">
+                        <input class="registration-inputs" type="password" name="new_password_repeat" placeholder="Powtórz hasło">
+                        <br>
+                        <div class="g-recaptcha" data-sitekey="6LcrreYUAAAAAGeERM9Etdv8wlh81RCSK0LXuwfX"></div>
+                        <br>
+                        <input class="btn btn-outline-light btn-lg" type="submit" value="ZAŁÓŻ KONTO">
+                        <br>
+                        {{ message }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</center>

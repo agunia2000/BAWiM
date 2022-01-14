@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="/stylesheets/profile_style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container-md">
+    <div class="row mt-3">
+
+        <!--Tab menu-->
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    <b>MOJE KONTO</b>
+                </div>
+                <div class="btn-group-vertical tab" role="group" id="choose-card">
+                    <button class="tab-links" onclick="pressTab(event, 'my_advertisements')">Moje ogłoszenia</button>
+                    <button class="tab-links" onclick="pressTab(event, 'account_info')">Zmień hasło</button>
+                    <button class="tab-links" onclick="pressTab(event, 'private_info')">Zmień dane osobowe</button>
+                    <button class="tab-links" onclick="pressTab(event, 'delete_account')">Usuń konto</button>
+                </div>
+            </div>
+        </div>
+
+        <!--My advertisements tab-->
+        <div class="tabcontent col-8" id="my_advertisements">
+            <div class="card" id="card-content">
+                <div class="card-header">
+                    MOJE OGŁOSZENIA
+                </div>
+                <div class="card-body mx-3">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Lp.</th>
+                            <th scope="col">TYTUŁ</th>
+                            <th scope="col">CENA</th>
+                            <th scope="col">PODGLĄD</th>
+                            <th scope="col">EDYTUJ</th>
+                            <th scope="col">USUŃ</th>
+                        </tr>
+                        </thead>
+                        {% if my_advertisements|length != 0 %}
+                            {% for advertisement in my_advertisements %}
+                                <tbody>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ advertisement['title'] }}</td>
+                                <td>{{ advertisement['price'] }} PLN</td>
+                                <td><a style = "color: white;" href="/advertisements/show/{{ advertisement['aid'] }}"><i class="fa fa-bars"></i></a></td>
+                                <td><a style = "color: white;" href="/advertisements/edit/{{ advertisement['aid'] }}"><i class="fa fa-folder"></i></a></td>
+                                <td><a style = "color: white;" href="/advertisements/remove/{{ advertisement['aid'] }}"><i class="fa fa-trash"></i></a></td>
+                                </tbody>
+                            {% endfor %}
+                        {% else %}
+                            <tbody>
+                            <td colspan="6" class="no-advertisements-info">Nie masz żadnych ogłoszeń</td>
+                            </tbody>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--Change password tab-->
+        <div class="tabcontent col-8" id="account_info">
+            <div class="card" id="card-content">
+                <div class="card-header">
+                    ZMIEŃ HASŁO
+                </div>
+                <div class="card-body mx-3">
+                    <form action="/profile" method="POST">
+                        <input class="password_inputs" type="password" name="current_password" placeholder="Aktualne hasło">
+                        <br>
+                        <input class="password_inputs" type="password" name="changed_password" placeholder="Nowe hasło">
+                        <br>
+                        <input class="password_inputs" type="password" name="changed_password_repeat" placeholder="Powtórz nowe hasło">
+                        <br>
+                        <input type="submit" class="btn btn-outline-light btn-lg" value="ZMIEŃ HASŁO">
+                        <br>
+                        {{ message_password }}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Update personal data tab-->
+        <div class="tabcontent col-8" id="private_info">
+            <div class="card" id="card-content">
+                <div class="card-header">
+                    ZMIEŃ DANE OSOBOWE
+                </div>
+                <div class="card-body mx-3">
+                    <form action="/profile" method="POST">
+                        <input class="user_inputs" type="text" name="changed_name" placeholder="Imię" value="{{ name }}">
+                        <input class="user_inputs" type="text" name="changed_surname" placeholder="Nazwisko" value="{{ surname }}">
+                        <br>
+                        <input class="user_inputs" type="text" name="changed_postcode" placeholder="Kod pocztowy" value="{{ postcode }}">
+                        <input class="user_inputs" type="text" name="changed_city" placeholder="Miejscowość" value="{{ city }}">
+                        <br>
+                        <input class="user_inputs" type="text" name="changed_email" placeholder="E-mail" value="{{ email }}">
+                        <input class="user_inputs" type="text" name="changed_phone_number" placeholder="Telefon" value="{{ phone_number }}">
+                        <br>
+                        <input type="submit" class="btn btn-outline-light btn-lg" value="ZMIEŃ DANE">
+                        <br>
+                        {{ message_user }}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Delete account tab-->
+        <div class="tabcontent col-8" id="delete_account">
+            <div class="card" id="card-content">
+                <div class="card-header">
+                    USUŃ KONTO
+                </div>
+                <div class="card-body mx-3">
+                    <form action="/profile" method="POST">
+                        <a>Usunięcie konta wymaga potwierdzenia hasłem.</a>
+                        <br>
+                        <input class="delete_input" type="password" name="password_confirm" placeholder="Aktualne hasło">
+                        <br>
+                        <input id="delete_button" type="submit" class="btn btn-danger btn-lg" value="USUŃ KONTO">
+                        <br>{{ message_delete }}
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    document.getElementById("my_advertisements").style.display = "block";
+
+    function pressTab(evt, tab) {
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tab-links");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tab).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+     var current_tab = "{{ current_tab }}";
+     if(current_tab=="account_info"){
+         pressTab(event, "account_info");
+     } else if (current_tab == "private_info") {
+         pressTab(event, "private_info")
+     } else if (current_tab == "delete_account"){
+         pressTab(event, "delete_account")
+     }
+
+</script>

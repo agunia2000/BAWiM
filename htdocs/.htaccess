@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteRule ^logout$ ?logout=1 [NC,L,QSA]
+RewriteRule ^([a-zA-Z0-9-_]+)$ index.php?page=$1 [NC,L,QSA]
+RewriteRule ^advertisements\/show\/([0-9]+)$ index.php?page=advertisements&show=$1 [NC,L,QSA]
+RewriteRule ^advertisements\/edit\/([0-9]+)$ index.php?page=edit-advertisement&edit=$1 [NC,L,QSA]
+RewriteRule ^advertisements\/remove\/([0-9]+)$ index.php?page=advertisements&remove=$1 [NC,L,QSA]
+RewriteRule ^advertisements\/.*$ index.php [NC,L,QSA]

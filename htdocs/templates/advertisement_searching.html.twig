@@ -1,0 +1,25 @@
+<div class="container mt-1">
+    <div class="card">
+        <div class="card-body d-flex justify-content-center">
+            <form class="form-inline my-auto center" action="/advertisements" method="POST" id="searching">
+                <input class="form-control mr-sm-2" name="title" placeholder="Szukana rzecz">
+                <select class="form-control mr-sm-2" name="category" form="searching">
+                    <option value="">wybierz kategorię</option>
+                    <option value="Motoryzacja">Motoryzacja</option>
+                    <option value="Nieruchomości">Nieruchomości</option>
+                    <option value="Dom i Ogród">Dom i Ogród</option>
+                    <option value="Elektronika">Elektronika</option>
+                    <option value="Sport i Hobby">Sport i Hobby</option>
+                    <option value="Edukacja">Edukacja</option>
+                    <option value="Rozrywka">Rozrywka</option>
+                    <option value="Rolnictwo">Rolnictwo</option>
+                    <option value="Dla dzieci">Dla dzieci</option>
+                    <option value="Moda">Moda</option>
+                    <option value="Inne">Inne</option>
+                </select>
+                <input class="form-control mr-sm-2" name="location" placeholder="Lokalizacja">
+                <input value="Szukaj" type="submit" name="searching_submit" class="btn btn-outline-light btn-md">
+            </form>
+        </div>
+    </div>
+</div>

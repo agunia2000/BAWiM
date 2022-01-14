@@ -1,0 +1,87 @@
+<head>
+	<link rel="stylesheet" href="/stylesheets/add_adv_style.css">
+</head>
+
+<center>
+	<div class="container mb-5">
+		<div class="col-md-8">
+			<div class="card mb-3">
+				<div class="card-header">
+					<b>EDYTUJ OGŁOSZENIE</b>
+				</div>
+				<div class="card-body">
+					<form action="/advertisements/edit/{{ aid }}" method="POST" enctype="multipart/form-data">
+						<div class="row">
+							<div class="center_labels">
+								<label for="edit_title" style="margin-top: -5px;">Tytuł</label>
+								<input name="edit_title" type="text" font-size="16px" autocomplete="off" placeholder="5-30 znaków" value="{{ title }}">
+								<label for="edit_category">Kategoria</label>
+								<select name="edit_category" id="edit_category" disabled>
+									<option value="{{ category }}">{{ category }}</option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<label id="pic">Zdjęcie</label>
+						</div>
+						<div class="row">
+							<div class="picture">
+								<input type="file" name="edit_picture" accept="image/*" onchange="loadFile(event)">
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="picture">
+								<img id="output" src="{{ path }}"/>
+							</div>
+						</div>
+						<div class="row">
+							<label for="edit_description" id="descr">Opis</label>
+						</div>
+						<div class="row">
+							<textarea name="edit_description" autocomplete="off" rows="5" placeholder="Opisz swój przedmiot (20-9000 znaków).">{{ description }}</textarea>
+						</div>
+						<div class="row">
+							<div class="center_labels">
+								<label for="edit_status">Stan</label>
+								<select name="edit_status" id="edit_status">
+									{% if status =='Używany' %}
+										<option value="">określ stan</option>
+										<option selected="Używany">Używany</option>
+										<option value="Nowy">Nowy</option>
+									{% else %}
+										<option value="">określ stan</option>
+										<option value="Używany">Używany</option>
+										<option selected="Nowy">Nowy</option>
+									{% endif %}
+								</select>
+								<label for="edit_price">Cena [PLN]</label>
+								<input name="edit_price" type="text" font-size="16px" autocomplete="off" value="{{ price }}" placeholder="1234567,50" style="text-align:center;">
+								<label for="edit_postcode">Kod pocztowy</label>
+								<input name="edit_postcode" type="text" font-size="16px" autocomplete="off" value="{{ postcode }}" placeholder="12-345" style="text-align:center;">
+								<label for="edit_location">Lokalizacja</label>
+								<input name="edit_location" type="text" font-size="16px" autocomplete="off" value="{{ location }}" placeholder="miejscowość" style="text-align:center;">
+								<label for="edit_phone_number">Numer telefonu</label>
+								<input name="edit_phone_number" type="text" font-size="16px" autocomplete="off" value="{{ phone_number}}" placeholder="123456789" style="text-align:center;">
+							</div>
+						</div>
+						<input class="btn btn-outline-light btn-lg" type="submit" value="ZAPISZ ZMIANY">
+						<br>
+						{{ message }}
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</center>
+
+<script>
+	var loadFile = function(event) {
+		var output = document.getElementById('output');
+		output.src = URL.createObjectURL(event.target.files[0]);
+		output.onload = function() {
+			URL.revokeObjectURL(output.src) // free memory
+		}
+	};
+</script>
